@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Experience, ExtraOption, PackageTier } from '../data/experiences';
 import { useAdmin } from '../context/AdminContext';
-import { X, Calendar, Check, Sparkles, Plus, Hotel, Utensils, Compass, Car, Printer } from 'lucide-react';
+import { X, Calendar, Check, Sparkles, Plus, Hotel, Utensils, Compass, Car, Printer, MessageCircle } from 'lucide-react';
 
 interface BookingModalProps {
   experience: Experience | null;
@@ -9,7 +9,8 @@ interface BookingModalProps {
 }
 
 export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose }) => {
-  const { createBooking, experiences } = useAdmin();
+  const { createBooking, experiences, settings } = useAdmin();
+  const whatsappNumber = settings?.whatsappNumber || '31614662672';
 
   if (!experience) return null;
 
@@ -368,9 +369,18 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                     <span className="text-[#F5F1E8]/70"> + {selectedExtras.length} Extra{selectedExtras.length > 1 ? 's' : ''}</span>
                   )}
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-xs text-[#6D675E] uppercase">Quotation:</span>
-                  <span className="font-serif text-lg md:text-xl text-[#C8A96B]">Contact for Full Quote</span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const text = `Hello Gezellig Royal Concierge, I would like to check availability for ${experience.title} (${selectedPackage.name}).`;
+                      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+                    }}
+                    className="btn-royal-maroon text-[11px] py-1.5 px-3 flex items-center gap-1.5"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 text-[#C8A96B]" />
+                    Check Availability
+                  </button>
                 </div>
               </div>
 
@@ -568,9 +578,19 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                     ))}
                   </div>
                   <div>
-                    <span className="text-[10px] text-[#6D675E] uppercase block">Total Quotation:</span>
-                    <span className="font-serif text-xl text-[#C8A96B] block">Contact for Full Quote</span>
-                    <span className="text-[10px] text-[#6D675E] block mt-0.5">Formal tailored proposal via Concierge</span>
+                    <span className="text-[10px] text-[#6D675E] uppercase block mb-1">Availability:</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const text = `Hello Gezellig Royal Concierge, I would like to check availability for ${experience.title} (Tier: ${selectedPackage.name}, Date: ${selectedDate || 'Preferred date'}).`;
+                        window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+                      }}
+                      className="btn-royal-maroon text-xs py-2 px-3 flex items-center gap-1.5 w-full justify-center"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 text-[#C8A96B]" />
+                      Check Availability
+                    </button>
+                    <span className="text-[10px] text-[#6D675E] block mt-1 text-center">Direct confirmation via Concierge</span>
                   </div>
                 </div>
 
@@ -613,7 +633,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                   type="submit"
                   className="btn-royal-maroon text-xs"
                 >
-                  REQUEST FULL ROYAL QUOTE →
+                  CONFIRM & CHECK AVAILABILITY →
                 </button>
               </div>
             </form>
@@ -631,10 +651,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                   GEZELLIG ROYAL
                 </span>
                 <h2 className="font-serif text-3xl md:text-4xl font-light text-[#F5F1E8]">
-                  Your Royal Quote Request Is Confirmed
+                  Your Royal Request Is Confirmed
                 </h2>
                 <p className="text-xs text-[#6D675E]">
-                  A detailed quotation request has been sent to our concierge for <span className="text-[#C8A96B]">{confirmedBooking.customerEmail}</span>.
+                  A detailed reservation request has been prepared for <span className="text-[#C8A96B]">{confirmedBooking.customerEmail}</span>.
                 </p>
               </div>
 
@@ -645,7 +665,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                     <img src="/images/logo-white.png" alt="Gezellig Royal" className="h-10 w-auto object-contain" />
                     <div>
                       <span className="font-serif text-[#C8A96B] text-sm tracking-widest block">GEZELLIG ROYAL</span>
-                      <span className="text-[10px] text-[#6D675E] uppercase tracking-wider">QUOTE REFERENCE</span>
+                      <span className="text-[10px] text-[#6D675E] uppercase tracking-wider">RESERVATION REFERENCE</span>
                     </div>
                   </div>
                   <span className="font-serif text-xl text-[#C8A96B] font-medium tracking-wider">
@@ -676,7 +696,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                 {confirmedBooking.bundledExperiences && confirmedBooking.bundledExperiences.length > 0 && (
                   <div className="pt-2 border-t border-[#C8A96B]/20">
                     <span className="text-[10px] text-[#C8A96B] uppercase tracking-wider block mb-1.5 font-medium">
-                      Bundled Luxury Experiences Included in Quote
+                      Bundled Luxury Experiences Included
                     </span>
                     <div className="flex flex-wrap gap-2">
                       {confirmedBooking.bundledExperiences.map((bundle: string, i: number) => (
@@ -704,8 +724,18 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                 )}
 
                 <div className="pt-2 border-t border-[#C8A96B]/15 flex justify-between items-center text-xs">
-                  <span className="text-[#6D675E]">Pricing Status:</span>
-                  <span className="font-serif text-[#C8A96B] text-base">Contact for Full Quote</span>
+                  <span className="text-[#6D675E]">Availability Status:</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const text = `Hello Gezellig Royal Concierge, I would like to check availability for ${confirmedBooking.experienceTitle} (Reference: ${confirmedBooking.referenceCode}, Date: ${confirmedBooking.selectedDate}).`;
+                      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+                    }}
+                    className="btn-royal-maroon text-[11px] py-1 px-2.5 flex items-center gap-1.5"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 text-[#C8A96B]" />
+                    Check Availability
+                  </button>
                 </div>
 
                 <div className="pt-2 text-center text-[10px] text-[#6D675E] italic">
@@ -716,12 +746,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
               <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
                 <button
                   onClick={() => {
-                    const text = `Hello Gezellig Royal Concierge, I requested a quote for ${confirmedBooking.experienceTitle} (Reference: ${confirmedBooking.referenceCode}). Please provide the full quote.`;
-                    window.open(`https://wa.me/31612345678?text=${encodeURIComponent(text)}`, '_blank');
+                    const text = `Hello Gezellig Royal Concierge, I would like to check availability for ${confirmedBooking.experienceTitle} (Reference: ${confirmedBooking.referenceCode}, Date: ${confirmedBooking.selectedDate}).`;
+                    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
                   }}
                   className="btn-royal-maroon text-xs flex items-center gap-2"
                 >
-                  CHAT ON WHATSAPP FOR QUOTE →
+                  <MessageCircle className="w-4 h-4 text-[#C8A96B]" />
+                  CHECK AVAILABILITY ON WHATSAPP →
                 </button>
                 <button
                   onClick={() => window.print()}

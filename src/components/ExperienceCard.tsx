@@ -1,6 +1,7 @@
 import React from 'react';
 import { Experience } from '../data/experiences';
-import { ArrowRight, Star, MapPin, Clock } from 'lucide-react';
+import { useAdmin } from '../context/AdminContext';
+import { ArrowRight, Star, MapPin, Clock, MessageCircle } from 'lucide-react';
 
 interface ExperienceCardProps {
   experience: Experience;
@@ -8,6 +9,8 @@ interface ExperienceCardProps {
 }
 
 export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, onSelect }) => {
+  const { settings } = useAdmin();
+  const whatsappNumber = settings?.whatsappNumber || '31614662672';
   return (
     <div
       onClick={() => onSelect(experience)}
@@ -69,20 +72,24 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, onSe
         {/* Animated Gold Divider Line */}
         <div className="w-0 group-hover:w-full h-[1px] bg-[#C8A96B]/40 transition-all duration-700 my-2" />
 
-        {/* Bottom Price & CTA */}
-        <div className="pt-2 flex items-center justify-between">
-          <div>
-            <span className="text-[9px] text-[#C8A96B] uppercase tracking-widest block font-sans font-medium">
-              BESPOKE QUOTE
-            </span>
-            <span className="font-serif text-sm md:text-base text-[#F5F1E8] font-light">
-              Contact for Full Quote
-            </span>
-          </div>
+        {/* Bottom Actions: Check Availability Button & Discover */}
+        <div className="pt-2 flex items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              const text = `Hello Gezellig Royal Concierge, I would like to check availability for "${experience.title}".`;
+              window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+            }}
+            className="btn-royal-maroon text-[11px] py-2.5 px-3.5 tracking-wider flex items-center gap-1.5 font-sans font-medium z-10 hover:shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+          >
+            <MessageCircle className="w-3.5 h-3.5 text-[#C8A96B]" />
+            <span>Check Availability</span>
+          </button>
 
-          <div className="flex items-center gap-2 text-xs text-[#C8A96B] uppercase tracking-widest font-sans font-medium group-hover:translate-x-1 transition-transform duration-300">
-            <span>DISCOVER</span>
-            <ArrowRight className="w-4 h-4 text-[#C8A96B] group-hover:translate-x-1 transition-transform" />
+          <div className="flex items-center gap-1.5 text-xs text-[#C8A96B] uppercase tracking-widest font-sans font-medium group-hover:translate-x-1 transition-transform duration-300">
+            <span>DETAILS</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[#C8A96B]" />
           </div>
         </div>
       </div>

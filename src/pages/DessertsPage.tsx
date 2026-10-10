@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useAdmin } from '../context/AdminContext';
 import { Experience } from '../data/experiences';
 import { ExperienceCard } from '../components/ExperienceCard';
-import { Sparkles, Star, Award, Clock, MapPin, Check, Heart, Shield } from 'lucide-react';
+import { Sparkles, Star, Award, Clock, MapPin, Check, Heart, Shield, MessageCircle } from 'lucide-react';
 
 interface DessertsPageProps {
   onSelectExperience: (exp: Experience) => void;
@@ -12,7 +12,8 @@ interface DessertsPageProps {
 
 export const DessertsPage: React.FC<DessertsPageProps> = ({ onSelectExperience, onOpenBooking }) => {
   const { t } = useLanguage();
-  const { experiences } = useAdmin();
+  const { experiences, settings } = useAdmin();
+  const whatsappNumber = settings?.whatsappNumber || '31614662672';
 
   // Filter experiences for Fine Desserts category
   const dessertExperiences = experiences.filter(exp => exp.category === 'Fine Desserts');
@@ -46,10 +47,15 @@ export const DessertsPage: React.FC<DessertsPageProps> = ({ onSelectExperience, 
 
             <div className="pt-4 flex flex-wrap items-center gap-4">
               <button
-                onClick={() => onOpenBooking(primaryDessert)}
-                className="btn-royal-maroon text-xs py-4 px-8"
+                type="button"
+                onClick={() => {
+                  const text = `Hello Gezellig Royal Concierge, I would like to check availability for Haute Pâtisserie & Gourmet Desserts (${primaryDessert?.title || 'Fine Desserts'}).`;
+                  window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+                }}
+                className="btn-royal-maroon text-xs py-4 px-8 tracking-widest flex items-center gap-2"
               >
-                {t.dessertsPage.bookBtn} →
+                <MessageCircle className="w-4 h-4 text-[#C8A96B]" />
+                CHECK AVAILABILITY →
               </button>
             </div>
           </div>
@@ -65,7 +71,17 @@ export const DessertsPage: React.FC<DessertsPageProps> = ({ onSelectExperience, 
             <div className="absolute bottom-6 left-6 right-6 bg-[#0B0A09]/90 border border-[#C8A96B]/30 p-4 backdrop-blur-md">
               <div className="flex justify-between items-center text-xs">
                 <span className="font-serif text-[#C8A96B] text-base">Michelin Pastry Pairing</span>
-                <span className="text-[#F5F1E8] font-serif">Contact for Full Quote</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const text = `Hello Gezellig Royal Concierge, I would like to check availability for Michelin Pastry Pairing.`;
+                    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+                  }}
+                  className="btn-royal-maroon text-[11px] py-2 px-3.5 tracking-wider flex items-center gap-1.5 font-sans"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 text-[#C8A96B]" />
+                  Check Availability
+                </button>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Experience } from '../data/experiences';
-import { MapPin, Clock, Star, Calendar, Check, ShieldCheck, Sparkles, ChevronLeft } from 'lucide-react';
+import { useAdmin } from '../context/AdminContext';
+import { MapPin, Clock, Star, Calendar, Check, ShieldCheck, Sparkles, ChevronLeft, MessageCircle } from 'lucide-react';
 
 interface ExperienceDetailPageProps {
   experience: Experience | null;
@@ -11,6 +12,8 @@ interface ExperienceDetailPageProps {
 export const ExperienceDetailPage: React.FC<ExperienceDetailPageProps> = ({ experience, onBack, onOpenBooking }) => {
   if (!experience) return null;
 
+  const { settings } = useAdmin();
+  const whatsappNumber = settings?.whatsappNumber || '31614662672';
   const [activeImage, setActiveImage] = useState<string>(experience.image);
 
   return (
@@ -124,9 +127,19 @@ export const ExperienceDetailPage: React.FC<ExperienceDetailPageProps> = ({ expe
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {experience.packages.map(pkg => (
                 <div key={pkg.id} className="p-6 border border-[#C8A96B]/20 bg-[#121110] space-y-3">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center gap-2">
                     <span className="font-serif text-lg text-[#C8A96B]">{pkg.name}</span>
-                    <span className="text-[10px] text-[#C8A96B] uppercase tracking-wider font-sans border border-[#C8A96B]/30 px-2 py-0.5">Quote on Request</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const text = `Hello Gezellig Royal Concierge, I would like to check availability for "${experience.title}" (${pkg.name} tier).`;
+                        window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+                      }}
+                      className="text-[10px] text-[#C8A96B] uppercase tracking-wider font-sans border border-[#C8A96B]/40 px-3 py-1 hover:bg-[#C8A96B] hover:text-[#0B0A09] transition-all flex items-center gap-1.5"
+                    >
+                      <MessageCircle className="w-3 h-3" />
+                      Check Availability
+                    </button>
                   </div>
                   <p className="text-xs text-[#6D675E]">{pkg.description}</p>
                 </div>
@@ -147,11 +160,11 @@ export const ExperienceDetailPage: React.FC<ExperienceDetailPageProps> = ({ expe
 
         {/* Right Sticky Booking Box */}
         <div className="lg:col-span-1 sticky top-28 space-y-6 p-8 border border-[#C8A96B]/30 bg-[#121110] shadow-2xl">
-          <div className="border-b border-[#C8A96B]/20 pb-4 space-y-1">
-            <span className="text-[10px] text-[#C8A96B] uppercase tracking-widest font-sans font-medium">BESPOKE EXPERIENCE PRICING</span>
+          <div className="border-b border-[#C8A96B]/20 pb-4 space-y-2">
+            <span className="text-[10px] text-[#C8A96B] uppercase tracking-widest font-sans font-medium">BESPOKE EXPERIENCE RESERVATIONS</span>
             <div>
-              <span className="font-serif text-2xl md:text-3xl text-[#F5F1E8] block leading-tight">Contact for Full Quote</span>
-              <span className="text-[11px] text-[#6D675E] block mt-1">Tailored proposal based on date, party size & personal extras</span>
+              <span className="font-serif text-2xl md:text-3xl text-[#F5F1E8] block leading-tight">Check Availability</span>
+              <span className="text-[11px] text-[#6D675E] block mt-1">Direct confirmation & custom requests via WhatsApp Concierge</span>
             </div>
           </div>
 
@@ -171,14 +184,25 @@ export const ExperienceDetailPage: React.FC<ExperienceDetailPageProps> = ({ expe
           </div>
 
           <button
-            onClick={() => onOpenBooking(experience)}
-            className="btn-royal-maroon w-full py-4 text-xs tracking-widest"
+            onClick={() => {
+              const text = `Hello Gezellig Royal Concierge, I would like to check availability for "${experience.title}".`;
+              window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+            }}
+            className="btn-royal-maroon w-full py-4 text-xs tracking-widest flex items-center justify-center gap-2 font-medium"
           >
-            REQUEST FULL QUOTE →
+            <MessageCircle className="w-4 h-4 text-[#C8A96B]" />
+            <span>CHECK AVAILABILITY →</span>
+          </button>
+
+          <button
+            onClick={() => onOpenBooking(experience)}
+            className="btn-royal-secondary w-full py-2.5 text-[11px] tracking-wider text-center"
+          >
+            CUSTOMIZE & BUNDLE EXTRAS
           </button>
 
           <p className="text-[10px] text-[#6D675E] text-center italic">
-            Direct Concierge Assistance & Flexible Payment Options
+            Direct Concierge Assistance via WhatsApp: +31 6 14662672
           </p>
         </div>
 

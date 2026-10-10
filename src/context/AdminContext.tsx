@@ -57,7 +57,7 @@ interface AdminContextType {
 }
 
 const DEFAULT_SETTINGS: StoreSettings = {
-  whatsappNumber: '31612345678', // Configurable official Netherlands WhatsApp number format
+  whatsappNumber: '31614662672', // Configurable official Netherlands WhatsApp number (+31614662672)
   businessEmail: 'concierge@gezelligroyal.nl',
   defaultCurrency: 'EUR',
   enableFlexiblePayment: true,
@@ -128,7 +128,16 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const [settings, setSettings] = useState<StoreSettings>(() => {
     const saved = localStorage.getItem('gezellig_settings');
-    return saved ? JSON.parse(saved) : DEFAULT_SETTINGS;
+    if (!saved) return DEFAULT_SETTINGS;
+    try {
+      const parsed = JSON.parse(saved);
+      if (parsed.whatsappNumber === '31612345678' || !parsed.whatsappNumber) {
+        parsed.whatsappNumber = '31614662672';
+      }
+      return { ...DEFAULT_SETTINGS, ...parsed };
+    } catch {
+      return DEFAULT_SETTINGS;
+    }
   });
 
   useEffect(() => {

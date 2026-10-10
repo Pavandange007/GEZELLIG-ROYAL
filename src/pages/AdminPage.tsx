@@ -396,7 +396,7 @@ export const AdminPage: React.FC = () => {
               type="text"
               value={waNumber}
               onChange={(e) => setWaNumber(e.target.value)}
-              placeholder="31612345678"
+              placeholder="31614662672"
               className="w-full bg-[#0B0A09] border border-[#C8A96B]/30 p-3 text-xs text-[#F5F1E8]"
             />
             <span className="text-[10px] text-[#6D675E] block mt-1">This number receives all direct WhatsApp inquiry links across mobile and desktop.</span>
