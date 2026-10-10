@@ -70,7 +70,19 @@ const AdminContext = createContext<AdminContextType | undefined>(undefined);
 export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [experiences, setExperiences] = useState<Experience[]>(() => {
     const saved = localStorage.getItem('gezellig_experiences');
-    return saved ? JSON.parse(saved) : INITIAL_EXPERIENCES;
+    if (!saved) return INITIAL_EXPERIENCES;
+    try {
+      const parsed: Experience[] = JSON.parse(saved);
+      const missing = INITIAL_EXPERIENCES.filter(init => !parsed.some(p => p.id === init.id));
+      if (missing.length > 0) {
+        const merged = [...parsed, ...missing];
+        localStorage.setItem('gezellig_experiences', JSON.stringify(merged));
+        return merged;
+      }
+      return parsed;
+    } catch {
+      return INITIAL_EXPERIENCES;
+    }
   });
 
   const [bookings, setBookings] = useState<Booking[]>(() => {

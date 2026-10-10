@@ -341,5 +341,101 @@ export const INITIAL_EXPERIENCES: Experience[] = [
     featured: true,
     rating: 5.0,
     reviewsCount: 19
+  },
+  {
+    id: 'exp-7',
+    slug: 'michelin-chefs-table-gastronomy',
+    title: 'Michelin Chef’s Table & Wine Symphony',
+    category: 'Fine Dining',
+    categoryLabel: 'FINE DINING',
+    shortDescription: 'An exclusive multi-course culinary journey seated at the private chef’s counter with sommelier wine pairings in a penthouse dining room.',
+    fullDescription: 'Immerse yourself in world-class culinary artistry. Seated at an intimate private chef’s counter overlooking panoramic city views, Executive Chef Julian presents a bespoke 7-course seasonal gastronomy journey. Watch culinary masters craft innovative dishes using Dutch North Sea langoustines, Wagyu beef, and heirloom ingredients, with each course accompanied by rare vintage wine pairings chosen by the Head Sommelier.',
+    priceFrom: 480,
+    currency: 'EUR',
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1200&q=80'
+    ],
+    location: 'Rotterdam Harbour Penthouse, Netherlands',
+    duration: '4 Hours',
+    availableDates: ['2026-10-16', '2026-10-19', '2026-10-23', '2026-10-28', '2026-11-04', '2026-11-11'],
+    includedItems: [
+      '7-Course seasonal haute gastronomy tasting menu for 2',
+      'Curated sommelier wine pairing with rare reserve vintages',
+      'Direct chef interaction and kitchen tour',
+      'Commemorative personalized leather menu keepsake'
+    ],
+    optionalExtras: [
+      { id: 'ext-caviar-tasting', name: 'Imperial Oscietra Caviar Course', price: 160, description: 'Handcrafted caviar pairing with vintage champagne' },
+      { id: 'ext-sommelier-bottle', name: 'Reserve Cellar Vintage Bottle Gift', price: 280, description: 'Exclusive bottle of sommelier reserve wine to take home' }
+    ],
+    packages: [
+      {
+        id: 'pkg-dining-essential',
+        name: 'ROYAL ESSENTIAL',
+        price: 480,
+        description: '7-Course tasting menu with wine pairings for 2 guests.',
+        inclusions: ['7-Course Tasting Menu', 'Full Wine Pairing', 'Chef Welcome']
+      },
+      {
+        id: 'pkg-dining-signature',
+        name: 'ROYAL SIGNATURE',
+        price: 780,
+        description: 'VIP Chef’s Counter with Caviar upgrade and Dom Pérignon Champagne toast.',
+        inclusions: ['Private Chef Counter', 'Caviar Upgrade', 'Vintage Champagne Pairing', 'Kitchen Tour & Signed Book']
+      }
+    ],
+    terms: 'Smart elegant attire requested. Dietary requests accommodated with 48 hours notice.',
+    cancellationPolicy: 'Free cancellation up to 5 days prior.',
+    minimumAge: 18,
+    maximumParticipants: 4,
+    featured: true,
+    rating: 4.99,
+    reviewsCount: 47
+  },
+  {
+    id: 'exp-8',
+    slug: 'the-grand-private-salon-gastronomy',
+    title: 'The Grand Private Salon Gastronomy',
+    category: 'Fine Dining',
+    categoryLabel: 'FINE DINING',
+    shortDescription: 'An intimate candlelit dining experience in a 17th-century private historic salon along Amsterdam’s canals.',
+    fullDescription: 'Dine in complete privacy in a restored historic monument salon in Amsterdam. A dedicated butler and private chef team deliver a 6-course royal dining experience with custom table florals, French champagne, and bespoke acoustic background music.',
+    priceFrom: 650,
+    currency: 'EUR',
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80'
+    ],
+    location: 'Oudezijds Canal Historic Salon, Amsterdam',
+    duration: '4.5 Hours',
+    availableDates: ['2026-10-17', '2026-10-21', '2026-10-26', '2026-10-31', '2026-11-07'],
+    includedItems: [
+      'Exclusive private historic salon room reservation for the evening',
+      '6-Course seasonal gourmet dinner served by private butler',
+      'Vintage Champagne reception upon arrival',
+      'Bespoke floral centerpiece arranged for your table'
+    ],
+    optionalExtras: [
+      { id: 'ext-harpist', name: 'Private Classical Harpist', price: 380, description: 'Live acoustic melodies during dinner service' }
+    ],
+    packages: [
+      {
+        id: 'pkg-salon-essential',
+        name: 'ROYAL ESSENTIAL',
+        price: 650,
+        description: 'Private Salon dinner with Champagne reception for 2 guests.',
+        inclusions: ['Private Salon', '6-Course Dinner', 'Champagne Reception', 'Personal Butler']
+      }
+    ],
+    terms: 'Exclusive single party booking per evening.',
+    cancellationPolicy: 'Free cancellation up to 7 days prior.',
+    minimumAge: 18,
+    maximumParticipants: 6,
+    featured: false,
+    rating: 4.96,
+    reviewsCount: 31
   }
 ];
