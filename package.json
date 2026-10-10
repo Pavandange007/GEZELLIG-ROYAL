@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "deploy": "npm run build && powershell -Command \"cd dist; git init; git checkout -B gh-pages; git add -A; git commit -m 'Deploy production build'; git remote add gezelligroyal https://github.com/Pavandange007/gezelligroyal.git; git push gezelligroyal gh-pages --force; Remove-Item -Recurse -Force .git\"",
     "lint": "oxlint",
     "preview": "vite preview"
   },
