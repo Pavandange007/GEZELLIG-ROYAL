@@ -117,7 +117,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
             <span>→</span>
             <span className={step >= 5 ? 'text-[#C8A96B] font-medium' : ''}>5. Details</span>
             <span>→</span>
-            <span className={step >= 6 ? 'text-[#C8A96B] font-medium' : ''}>6. Payment</span>
+            <span className={step >= 6 ? 'text-[#C8A96B] font-medium' : ''}>6. Quote Preference</span>
           </div>
         )}
 
@@ -203,8 +203,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                           <Check className="w-5 h-5 text-[#C8A96B]" />
                         )}
                       </div>
-                      <span className="font-serif text-2xl text-[#F5F1E8] block">
-                        €{pkg.price}
+                      <span className="text-[10px] text-[#C8A96B] uppercase tracking-wider font-sans border border-[#C8A96B]/30 px-2 py-0.5 inline-block my-1">
+                        Full Quote on Request
                       </span>
                       <p className="text-xs text-[#6D675E] leading-relaxed">
                         {pkg.description}
@@ -295,8 +295,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                         </div>
 
                         <div className="text-right shrink-0">
-                          <span className="font-serif text-sm text-[#C8A96B] font-medium block">
-                            +€{bundleExp.priceFrom}
+                          <span className="text-[10px] text-[#C8A96B] uppercase font-sans font-medium block">
+                            Bundle to Quote
                           </span>
                           <div className={`w-5 h-5 rounded border border-[#C8A96B] flex items-center justify-center mt-1 ml-auto ${isBundled ? 'bg-[#C8A96B]' : ''}`}>
                             {isBundled ? <Check className="w-3.5 h-3.5 text-[#0B0A09]" /> : <Plus className="w-3 h-3 text-[#6D675E]" />}
@@ -343,8 +343,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                         </div>
 
                         <div className="text-right shrink-0 ml-4">
-                          <span className="font-serif text-sm text-[#C8A96B] block">
-                            +€{extra.price}
+                          <span className="text-[10px] text-[#C8A96B] uppercase font-sans block">
+                            Bespoke Touch
                           </span>
                           <div className={`w-5 h-5 rounded border border-[#C8A96B] flex items-center justify-center mt-1 ml-auto ${isSelected ? 'bg-[#C8A96B]' : ''}`}>
                             {isSelected ? <Check className="w-3.5 h-3.5 text-[#0B0A09]" /> : <Plus className="w-3 h-3 text-[#6D675E]" />}
@@ -359,7 +359,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
               {/* Bottom Live Subtotal Banner */}
               <div className="p-4 border border-[#C8A96B]/30 bg-[#0B0A09] flex flex-col sm:flex-row items-center justify-between gap-3">
                 <div className="text-xs text-[#6D675E]">
-                  <span>Total Selected: </span>
+                  <span>Quote Scope: </span>
                   <span className="text-[#F5F1E8] font-medium">{experience.title}</span>
                   {selectedBundledExperiences.length > 0 && (
                     <span className="text-[#C8A96B]"> + {selectedBundledExperiences.length} Additional Experience{selectedBundledExperiences.length > 1 ? 's' : ''}</span>
@@ -369,8 +369,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                   )}
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-xs text-[#6D675E] uppercase">Total:</span>
-                  <span className="font-serif text-2xl text-[#C8A96B]">€{totalPrice}</span>
+                  <span className="text-xs text-[#6D675E] uppercase">Quotation:</span>
+                  <span className="font-serif text-lg md:text-xl text-[#C8A96B]">Contact for Full Quote</span>
                 </div>
               </div>
 
@@ -518,64 +518,69 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                   onClick={() => setStep(6)}
                   className="btn-royal-primary text-xs"
                 >
-                  NEXT: PAYMENT →
+                  NEXT: QUOTE PREFERENCE →
                 </button>
               </div>
             </div>
           )}
 
-          {/* STEP 6: PAYMENT & ORDER SUMMARY */}
+          {/* STEP 6: QUOTATION & PAYMENT PREFERENCE */}
           {step === 6 && (
             <form onSubmit={handleCompleteBooking} className="space-y-6">
               <div className="space-y-2">
                 <span className="text-xs uppercase tracking-[0.2em] text-[#C8A96B] block">
-                  STEP 06
+                  STEP 06 — BESPOKE QUOTATION PREFERENCE
                 </span>
-                <h2 className="font-serif text-3xl font-light">Flexible Payment Options</h2>
+                <h2 className="font-serif text-3xl font-light">Request Your Full Royal Quote</h2>
                 <p className="text-xs text-[#6D675E]">
-                  A Royal Experience should be easy to give. Choose your preferred secure Dutch & international payment method.
+                  Our concierge will prepare a tailored proposal based on your selected date, package tier, and bundled additions. Select your preferred settlement method for the final quote:
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
                 {/* Summary Box */}
                 <div className="md:col-span-1 p-5 border border-[#C8A96B]/30 bg-[#0B0A09] space-y-4">
-                  <h4 className="font-serif text-lg text-[#C8A96B]">Order Summary</h4>
+                  <h4 className="font-serif text-lg text-[#C8A96B]">Quote Scope</h4>
                   <div className="space-y-2 text-xs text-[#6D675E] border-b border-[#C8A96B]/15 pb-3">
                     <div className="flex justify-between">
-                      <span className="text-[#F5F1E8]">Primary ({selectedPackage.name}):</span>
-                      <span className="text-[#F5F1E8]">€{basePrice}</span>
+                      <span className="text-[#F5F1E8]">Primary:</span>
+                      <span className="text-[#F5F1E8] font-medium truncate max-w-[130px]">{experience.title}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-[#F5F1E8]">Package:</span>
+                      <span className="text-[#C8A96B]">{selectedPackage.name}</span>
                     </div>
 
                     {/* Bundled Experiences in Summary */}
                     {selectedBundledExperiences.map(bundle => (
                       <div key={bundle.id} className="flex justify-between text-[#C8A96B]">
-                        <span>+ {bundle.title}:</span>
-                        <span>€{bundle.priceFrom}</span>
+                        <span className="truncate max-w-[130px]">+ {bundle.title}:</span>
+                        <span>Bundled</span>
                       </div>
                     ))}
 
                     {/* Extras in Summary */}
                     {selectedExtras.map(ext => (
-                      <div key={ext.id} className="flex justify-between">
-                        <span>+ {ext.name}:</span>
-                        <span className="text-[#F5F1E8]">€{ext.price}</span>
+                      <div key={ext.id} className="flex justify-between text-[#F5F1E8]/70">
+                        <span className="truncate max-w-[130px]">+ {ext.name}:</span>
+                        <span>Included</span>
                       </div>
                     ))}
                   </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="font-serif text-[#C8A96B]">Total Due:</span>
-                    <span className="font-serif text-2xl text-[#F5F1E8]">€{totalPrice}</span>
+                  <div>
+                    <span className="text-[10px] text-[#6D675E] uppercase block">Total Quotation:</span>
+                    <span className="font-serif text-xl text-[#C8A96B] block">Contact for Full Quote</span>
+                    <span className="text-[10px] text-[#6D675E] block mt-0.5">Formal tailored proposal via Concierge</span>
                   </div>
                 </div>
 
-                {/* Payment Selection */}
+                {/* Settlement Method Preference */}
                 <div className="md:col-span-2 space-y-3">
                   {[
-                    { id: 'iDEAL', name: 'iDEAL (All Dutch Banks)', desc: 'Instant bank transfer via ABN AMRO, ING, Rabobank, SNS' },
-                    { id: 'Klarna', name: 'Klarna Flexible Payments (3 Parts)', desc: 'Pay in 3 interest-free installments of €' + (totalPrice / 3).toFixed(2) },
-                    { id: 'CreditCard', name: 'Credit Card (Visa, Mastercard, AMEX)', desc: 'Secure encrypted card processing' },
-                    { id: 'ApplePay', name: 'Apple Pay / Google Pay', desc: 'One-touch checkout' }
+                    { id: 'iDEAL', name: 'iDEAL (All Dutch Banks)', desc: 'Direct bank invoice upon quote confirmation' },
+                    { id: 'Klarna', name: 'Klarna Flexible Invoicing (Split into 3)', desc: 'Flexible monthly split payments' },
+                    { id: 'CreditCard', name: 'Credit Card (Visa, Mastercard, AMEX)', desc: 'Secure card authorization' },
+                    { id: 'ApplePay', name: 'Direct Concierge Invoice / Bank Wire', desc: 'Private bank transfer & concierge invoicing' }
                   ].map(method => (
                     <div
                       key={method.id}
@@ -608,7 +613,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                   type="submit"
                   className="btn-royal-maroon text-xs"
                 >
-                  CONFIRM & BOOK EXPERIENCE (€{totalPrice}) →
+                  REQUEST FULL ROYAL QUOTE →
                 </button>
               </div>
             </form>
@@ -626,10 +631,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                   GEZELLIG ROYAL
                 </span>
                 <h2 className="font-serif text-3xl md:text-4xl font-light text-[#F5F1E8]">
-                  Your Royal Experience Is Confirmed
+                  Your Royal Quote Request Is Confirmed
                 </h2>
                 <p className="text-xs text-[#6D675E]">
-                  A confirmation voucher email has been sent to <span className="text-[#C8A96B]">{confirmedBooking.customerEmail}</span>.
+                  A detailed quotation request has been sent to our concierge for <span className="text-[#C8A96B]">{confirmedBooking.customerEmail}</span>.
                 </p>
               </div>
 
@@ -640,7 +645,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                     <img src="/images/logo-white.png" alt="Gezellig Royal" className="h-10 w-auto object-contain" />
                     <div>
                       <span className="font-serif text-[#C8A96B] text-sm tracking-widest block">GEZELLIG ROYAL</span>
-                      <span className="text-[10px] text-[#6D675E] uppercase tracking-wider">BOOKING REFERENCE</span>
+                      <span className="text-[10px] text-[#6D675E] uppercase tracking-wider">QUOTE REFERENCE</span>
                     </div>
                   </div>
                   <span className="font-serif text-xl text-[#C8A96B] font-medium tracking-wider">
@@ -654,7 +659,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                     <span className="font-medium text-[#F5F1E8]">{confirmedBooking.experienceTitle}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-[#6D675E] uppercase block">Date</span>
+                    <span className="text-[10px] text-[#6D675E] uppercase block">Preferred Date</span>
                     <span className="font-medium text-[#F5F1E8]">{confirmedBooking.selectedDate}</span>
                   </div>
                   <div>
@@ -662,7 +667,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                     <span className="font-medium text-[#F5F1E8]">{confirmedBooking.recipientName}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-[#6D675E] uppercase block">Package</span>
+                    <span className="text-[10px] text-[#6D675E] uppercase block">Selected Tier</span>
                     <span className="font-medium text-[#F5F1E8]">{confirmedBooking.packageName}</span>
                   </div>
                 </div>
@@ -671,7 +676,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                 {confirmedBooking.bundledExperiences && confirmedBooking.bundledExperiences.length > 0 && (
                   <div className="pt-2 border-t border-[#C8A96B]/20">
                     <span className="text-[10px] text-[#C8A96B] uppercase tracking-wider block mb-1.5 font-medium">
-                      Bundled Luxury Experiences Included
+                      Bundled Luxury Experiences Included in Quote
                     </span>
                     <div className="flex flex-wrap gap-2">
                       {confirmedBooking.bundledExperiences.map((bundle: string, i: number) => (
@@ -698,6 +703,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                   </div>
                 )}
 
+                <div className="pt-2 border-t border-[#C8A96B]/15 flex justify-between items-center text-xs">
+                  <span className="text-[#6D675E]">Pricing Status:</span>
+                  <span className="font-serif text-[#C8A96B] text-base">Contact for Full Quote</span>
+                </div>
+
                 <div className="pt-2 text-center text-[10px] text-[#6D675E] italic">
                   «Once in a Royal Experience — Gezellig Royal»
                 </div>
@@ -705,11 +715,20 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
 
               <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
                 <button
+                  onClick={() => {
+                    const text = `Hello Gezellig Royal Concierge, I requested a quote for ${confirmedBooking.experienceTitle} (Reference: ${confirmedBooking.referenceCode}). Please provide the full quote.`;
+                    window.open(`https://wa.me/31612345678?text=${encodeURIComponent(text)}`, '_blank');
+                  }}
+                  className="btn-royal-maroon text-xs flex items-center gap-2"
+                >
+                  CHAT ON WHATSAPP FOR QUOTE →
+                </button>
+                <button
                   onClick={() => window.print()}
                   className="btn-royal-primary text-xs flex items-center gap-2"
                 >
                   <Printer className="w-4 h-4" />
-                  PRINT ROYAL VOUCHER
+                  PRINT QUOTE SUMMARY
                 </button>
                 <button
                   onClick={onClose}

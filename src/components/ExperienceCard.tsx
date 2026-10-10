@@ -72,11 +72,11 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, onSe
         {/* Bottom Price & CTA */}
         <div className="pt-2 flex items-center justify-between">
           <div>
-            <span className="text-[10px] text-[#6D675E] uppercase tracking-widest block font-sans">
-              FROM
+            <span className="text-[9px] text-[#C8A96B] uppercase tracking-widest block font-sans font-medium">
+              BESPOKE QUOTE
             </span>
-            <span className="font-serif text-xl md:text-2xl text-[#F5F1E8]">
-              €{experience.priceFrom}
+            <span className="font-serif text-sm md:text-base text-[#F5F1E8] font-light">
+              Contact for Full Quote
             </span>
           </div>
 

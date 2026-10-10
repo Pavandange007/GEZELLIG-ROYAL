@@ -12,7 +12,7 @@ export const FAQPage: React.FC = () => {
     },
     {
       q: 'How does gifting work?',
-      a: 'Choose an experience, select your preferred package tier, add personal extras (such as flowers, champagne, or private transfer), complete payment, and receive an instant royal voucher pass for your recipient.'
+      a: 'Choose an experience, select your preferred package tier, add personal extras (such as flowers, champagne, or private transfer), and request your bespoke quote. Our royal concierge team will furnish your tailored proposal and provide your personalized royal voucher pass.'
     },
     {
       q: 'Can I choose a date?',
@@ -28,7 +28,7 @@ export const FAQPage: React.FC = () => {
     },
     {
       q: 'Can I pay in instalments?',
-      a: 'Where supported, flexible payment options like Klarna 3-part flexible payments and iDEAL are integrated for seamless checkout.'
+      a: 'Where supported, flexible payment options like Klarna 3-part flexible payments and iDEAL are supported upon quote approval.'
     },
     {
       q: 'Can I change my date after booking?',

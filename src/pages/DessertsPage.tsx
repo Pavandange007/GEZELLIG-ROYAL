@@ -65,7 +65,7 @@ export const DessertsPage: React.FC<DessertsPageProps> = ({ onSelectExperience, 
             <div className="absolute bottom-6 left-6 right-6 bg-[#0B0A09]/90 border border-[#C8A96B]/30 p-4 backdrop-blur-md">
               <div className="flex justify-between items-center text-xs">
                 <span className="font-serif text-[#C8A96B] text-base">Michelin Pastry Pairing</span>
-                <span className="text-[#F5F1E8]">From €245</span>
+                <span className="text-[#F5F1E8] font-serif">Contact for Full Quote</span>
               </div>
             </div>
           </div>

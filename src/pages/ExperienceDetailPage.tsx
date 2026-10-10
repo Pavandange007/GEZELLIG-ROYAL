@@ -124,8 +124,10 @@ export const ExperienceDetailPage: React.FC<ExperienceDetailPageProps> = ({ expe
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {experience.packages.map(pkg => (
                 <div key={pkg.id} className="p-6 border border-[#C8A96B]/20 bg-[#121110] space-y-3">
-                  <span className="font-serif text-lg text-[#C8A96B]">{pkg.name}</span>
-                  <span className="font-serif text-2xl text-[#F5F1E8] block">€{pkg.price}</span>
+                  <div className="flex justify-between items-center">
+                    <span className="font-serif text-lg text-[#C8A96B]">{pkg.name}</span>
+                    <span className="text-[10px] text-[#C8A96B] uppercase tracking-wider font-sans border border-[#C8A96B]/30 px-2 py-0.5">Quote on Request</span>
+                  </div>
                   <p className="text-xs text-[#6D675E]">{pkg.description}</p>
                 </div>
               ))}
@@ -146,17 +148,17 @@ export const ExperienceDetailPage: React.FC<ExperienceDetailPageProps> = ({ expe
         {/* Right Sticky Booking Box */}
         <div className="lg:col-span-1 sticky top-28 space-y-6 p-8 border border-[#C8A96B]/30 bg-[#121110] shadow-2xl">
           <div className="border-b border-[#C8A96B]/20 pb-4 space-y-1">
-            <span className="text-[10px] text-[#6D675E] uppercase tracking-widest">STARTING FROM</span>
-            <div className="flex items-baseline gap-2">
-              <span className="font-serif text-4xl text-[#F5F1E8]">€{experience.priceFrom}</span>
-              <span className="text-xs text-[#6D675E]">per experience</span>
+            <span className="text-[10px] text-[#C8A96B] uppercase tracking-widest font-sans font-medium">BESPOKE EXPERIENCE PRICING</span>
+            <div>
+              <span className="font-serif text-2xl md:text-3xl text-[#F5F1E8] block leading-tight">Contact for Full Quote</span>
+              <span className="text-[11px] text-[#6D675E] block mt-1">Tailored proposal based on date, party size & personal extras</span>
             </div>
           </div>
 
           <div className="space-y-3 text-xs text-[#F5F1E8]/80">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#C8A96B]" />
-              <span>Flexible Netherlands Date Transfers</span>
+              <span>Flexible Date Transfers</span>
             </div>
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-[#C8A96B]" />
@@ -172,11 +174,11 @@ export const ExperienceDetailPage: React.FC<ExperienceDetailPageProps> = ({ expe
             onClick={() => onOpenBooking(experience)}
             className="btn-royal-maroon w-full py-4 text-xs tracking-widest"
           >
-            BOOK THIS EXPERIENCE →
+            REQUEST FULL QUOTE →
           </button>
 
           <p className="text-[10px] text-[#6D675E] text-center italic">
-            iDEAL & Flexible Payment Plans Supported
+            Direct Concierge Assistance & Flexible Payment Options
           </p>
         </div>
 
