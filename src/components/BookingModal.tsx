@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Experience, ExtraOption, PackageTier } from '../data/experiences';
 import { useAdmin } from '../context/AdminContext';
-import { X, Calendar, Check, ShieldCheck, Sparkles, Gift, CreditCard, Download, Printer, Share2 } from 'lucide-react';
+import { X, Calendar, Check, Sparkles, Plus, Hotel, Utensils, Compass, Car, Printer } from 'lucide-react';
 
 interface BookingModalProps {
   experience: Experience | null;
@@ -9,7 +9,7 @@ interface BookingModalProps {
 }
 
 export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose }) => {
-  const { createBooking } = useAdmin();
+  const { createBooking, experiences } = useAdmin();
 
   if (!experience) return null;
 
@@ -21,6 +21,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
     experience.packages[0] || { id: 'pkg-default', name: 'ROYAL ESSENTIAL', price: experience.priceFrom, description: 'Standard luxury package', inclusions: [] }
   );
   const [selectedExtras, setSelectedExtras] = useState<ExtraOption[]>([]);
+  const [selectedBundledExperiences, setSelectedBundledExperiences] = useState<Experience[]>([]);
   const [recipientName, setRecipientName] = useState<string>('');
   const [recipientMessage, setRecipientMessage] = useState<string>('');
   const [customerName, setCustomerName] = useState<string>('');
@@ -31,16 +32,28 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
   // Completed Booking State
   const [confirmedBooking, setConfirmedBooking] = useState<any | null>(null);
 
+  // Other available experiences to bundle (e.g. 5-Star Hotel Stay, Fine Desserts, Romance, etc.)
+  const availableBundles = experiences.filter(exp => exp.id !== experience.id);
+
   // Calculated Pricing
   const basePrice = selectedPackage.price;
   const extrasTotal = selectedExtras.reduce((sum, item) => sum + item.price, 0);
-  const totalPrice = basePrice + extrasTotal;
+  const bundlesTotal = selectedBundledExperiences.reduce((sum, item) => sum + item.priceFrom, 0);
+  const totalPrice = basePrice + extrasTotal + bundlesTotal;
 
   const toggleExtra = (extra: ExtraOption) => {
     if (selectedExtras.some(e => e.id === extra.id)) {
       setSelectedExtras(selectedExtras.filter(e => e.id !== extra.id));
     } else {
       setSelectedExtras([...selectedExtras, extra]);
+    }
+  };
+
+  const toggleBundledExperience = (bundleExp: Experience) => {
+    if (selectedBundledExperiences.some(e => e.id === bundleExp.id)) {
+      setSelectedBundledExperiences(selectedBundledExperiences.filter(e => e.id !== bundleExp.id));
+    } else {
+      setSelectedBundledExperiences([...selectedBundledExperiences, bundleExp]);
     }
   };
 
@@ -53,6 +66,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
       packageName: selectedPackage.name,
       priceTotal: totalPrice,
       extras: selectedExtras.map(e => e.name),
+      bundledExperiences: selectedBundledExperiences.map(e => e.title),
       recipientName: recipientName || 'Honored Recipient',
       recipientMessage: recipientMessage || 'A royal experience gifted to you.',
       customerName: customerName || 'Valued Guest',
@@ -99,7 +113,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
             <span>→</span>
             <span className={step >= 2 ? 'text-[#C8A96B] font-medium' : ''}>2. Package</span>
             <span>→</span>
-            <span className={step >= 3 ? 'text-[#C8A96B] font-medium' : ''}>3. Extras</span>
+            <span className={step >= 3 ? 'text-[#C8A96B] font-medium' : ''}>3. Add Experiences & Extras</span>
             <span>→</span>
             <span className={step >= 4 ? 'text-[#C8A96B] font-medium' : ''}>4. Recipient</span>
             <span>→</span>
@@ -222,64 +236,147 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                   onClick={() => setStep(3)}
                   className="btn-royal-primary text-xs"
                 >
-                  NEXT: PERSONAL EXTRAS →
+                  NEXT: ADD EXPERIENCES & EXTRAS →
                 </button>
               </div>
             </div>
           )}
 
-          {/* STEP 3: PERSONAL EXTRAS */}
+          {/* STEP 3: ADD OTHER EXPERIENCES (HOTEL, DESSERTS, ETC.) & PERSONAL EXTRAS */}
           {step === 3 && (
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div className="space-y-2">
                 <span className="text-xs uppercase tracking-[0.2em] text-[#C8A96B] block">
-                  STEP 03
+                  STEP 03 — COMPLETE THE ROYAL ITINERARY
                 </span>
-                <h2 className="font-serif text-3xl font-light">Make It Personal</h2>
+                <h2 className="font-serif text-3xl font-light">Bundle Other Luxury Experiences & Extras</h2>
                 <p className="text-xs text-[#6D675E]">
-                  Add bespoke personal touches to ensure the experience is unforgettable upon arrival.
+                  Combine this booking with other handpicked experiences (such as a 5-Star Hotel Stay or Fine Desserts Tasting) plus personal extras for the ultimate royal gift.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-                {experience.optionalExtras.map(extra => {
-                  const isSelected = selectedExtras.some(e => e.id === extra.id);
-                  return (
-                    <div
-                      key={extra.id}
-                      onClick={() => toggleExtra(extra)}
-                      className={`p-5 border cursor-pointer transition-all flex items-center justify-between ${
-                        isSelected
-                          ? 'border-[#C8A96B] bg-[#C8A96B]/10'
-                          : 'border-[#C8A96B]/20 bg-[#0B0A09] hover:border-[#C8A96B]/40'
-                      }`}
-                    >
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <Sparkles className="w-4 h-4 text-[#C8A96B]" />
-                          <span className="font-medium text-xs text-[#F5F1E8]">
-                            {extra.name}
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-[#6D675E]">
-                          {extra.description}
-                        </p>
-                      </div>
+              {/* 1. BUNDLE OTHER EXPERIENCES (Luxury Hotels, Dining, Desserts, Stays) */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 border-b border-[#C8A96B]/20 pb-2">
+                  <Hotel className="w-4 h-4 text-[#C8A96B]" />
+                  <h3 className="font-serif text-lg text-[#C8A96B] tracking-wide">
+                    Bundle Other Luxury Experiences (Hotels, Dining & Stays)
+                  </h3>
+                </div>
 
-                      <div className="text-right shrink-0 ml-4">
-                        <span className="font-serif text-sm text-[#C8A96B] block">
-                          +€{extra.price}
-                        </span>
-                        <div className={`w-5 h-5 rounded border border-[#C8A96B] flex items-center justify-center mt-1 ${isSelected ? 'bg-[#C8A96B]' : ''}`}>
-                          {isSelected && <Check className="w-3.5 h-3.5 text-[#0B0A09]" />}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {availableBundles.map(bundleExp => {
+                    const isBundled = selectedBundledExperiences.some(e => e.id === bundleExp.id);
+                    return (
+                      <div
+                        key={bundleExp.id}
+                        onClick={() => toggleBundledExperience(bundleExp)}
+                        className={`p-4 border cursor-pointer transition-all flex items-center justify-between gap-4 ${
+                          isBundled
+                            ? 'border-[#C8A96B] bg-[#C8A96B]/15 ring-1 ring-[#C8A96B]'
+                            : 'border-[#C8A96B]/20 bg-[#0B0A09] hover:border-[#C8A96B]/50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3 overflow-hidden">
+                          <img
+                            src={bundleExp.image}
+                            alt={bundleExp.title}
+                            className="w-16 h-16 object-cover shrink-0 border border-[#C8A96B]/30"
+                          />
+                          <div className="space-y-1">
+                            <span className="text-[9px] text-[#C8A96B] uppercase tracking-wider block font-sans font-medium">
+                              {bundleExp.categoryLabel}
+                            </span>
+                            <h4 className="font-serif text-sm text-[#F5F1E8] font-medium leading-tight truncate">
+                              {bundleExp.title}
+                            </h4>
+                            <span className="text-[10px] text-[#6D675E] block">
+                              {bundleExp.location.split(',')[0]} • {bundleExp.duration}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="text-right shrink-0">
+                          <span className="font-serif text-sm text-[#C8A96B] font-medium block">
+                            +€{bundleExp.priceFrom}
+                          </span>
+                          <div className={`w-5 h-5 rounded border border-[#C8A96B] flex items-center justify-center mt-1 ml-auto ${isBundled ? 'bg-[#C8A96B]' : ''}`}>
+                            {isBundled ? <Check className="w-3.5 h-3.5 text-[#0B0A09]" /> : <Plus className="w-3 h-3 text-[#6D675E]" />}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
 
-              <div className="pt-6 flex justify-between">
+              {/* 2. PERSONAL TOUCHES & BESPOKE EXTRAS */}
+              <div className="space-y-4 pt-2">
+                <div className="flex items-center gap-2 border-b border-[#C8A96B]/20 pb-2">
+                  <Sparkles className="w-4 h-4 text-[#C8A96B]" />
+                  <h3 className="font-serif text-lg text-[#C8A96B] tracking-wide">
+                    Personal Extras & Celebration Touches
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {experience.optionalExtras.map(extra => {
+                    const isSelected = selectedExtras.some(e => e.id === extra.id);
+                    return (
+                      <div
+                        key={extra.id}
+                        onClick={() => toggleExtra(extra)}
+                        className={`p-4 border cursor-pointer transition-all flex items-center justify-between ${
+                          isSelected
+                            ? 'border-[#C8A96B] bg-[#C8A96B]/10 ring-1 ring-[#C8A96B]'
+                            : 'border-[#C8A96B]/20 bg-[#0B0A09] hover:border-[#C8A96B]/40'
+                        }`}
+                      >
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <Sparkles className="w-3.5 h-3.5 text-[#C8A96B]" />
+                            <span className="font-medium text-xs text-[#F5F1E8]">
+                              {extra.name}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-[#6D675E]">
+                            {extra.description}
+                          </p>
+                        </div>
+
+                        <div className="text-right shrink-0 ml-4">
+                          <span className="font-serif text-sm text-[#C8A96B] block">
+                            +€{extra.price}
+                          </span>
+                          <div className={`w-5 h-5 rounded border border-[#C8A96B] flex items-center justify-center mt-1 ml-auto ${isSelected ? 'bg-[#C8A96B]' : ''}`}>
+                            {isSelected ? <Check className="w-3.5 h-3.5 text-[#0B0A09]" /> : <Plus className="w-3 h-3 text-[#6D675E]" />}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Bottom Live Subtotal Banner */}
+              <div className="p-4 border border-[#C8A96B]/30 bg-[#0B0A09] flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="text-xs text-[#6D675E]">
+                  <span>Total Selected: </span>
+                  <span className="text-[#F5F1E8] font-medium">{experience.title}</span>
+                  {selectedBundledExperiences.length > 0 && (
+                    <span className="text-[#C8A96B]"> + {selectedBundledExperiences.length} Additional Experience{selectedBundledExperiences.length > 1 ? 's' : ''}</span>
+                  )}
+                  {selectedExtras.length > 0 && (
+                    <span className="text-[#F5F1E8]/70"> + {selectedExtras.length} Extra{selectedExtras.length > 1 ? 's' : ''}</span>
+                  )}
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-xs text-[#6D675E] uppercase">Total:</span>
+                  <span className="font-serif text-2xl text-[#C8A96B]">€{totalPrice}</span>
+                </div>
+              </div>
+
+              <div className="pt-4 flex justify-between">
                 <button
                   onClick={() => setStep(2)}
                   className="btn-royal-secondary text-xs"
@@ -429,7 +526,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
             </div>
           )}
 
-          {/* STEP 6: PAYMENT */}
+          {/* STEP 6: PAYMENT & ORDER SUMMARY */}
           {step === 6 && (
             <form onSubmit={handleCompleteBooking} className="space-y-6">
               <div className="space-y-2">
@@ -448,12 +545,22 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                   <h4 className="font-serif text-lg text-[#C8A96B]">Order Summary</h4>
                   <div className="space-y-2 text-xs text-[#6D675E] border-b border-[#C8A96B]/15 pb-3">
                     <div className="flex justify-between">
-                      <span>Package ({selectedPackage.name}):</span>
+                      <span className="text-[#F5F1E8]">Primary ({selectedPackage.name}):</span>
                       <span className="text-[#F5F1E8]">€{basePrice}</span>
                     </div>
+
+                    {/* Bundled Experiences in Summary */}
+                    {selectedBundledExperiences.map(bundle => (
+                      <div key={bundle.id} className="flex justify-between text-[#C8A96B]">
+                        <span>+ {bundle.title}:</span>
+                        <span>€{bundle.priceFrom}</span>
+                      </div>
+                    ))}
+
+                    {/* Extras in Summary */}
                     {selectedExtras.map(ext => (
                       <div key={ext.id} className="flex justify-between">
-                        <span>{ext.name}:</span>
+                        <span>+ {ext.name}:</span>
                         <span className="text-[#F5F1E8]">€{ext.price}</span>
                       </div>
                     ))}
@@ -542,7 +649,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
 
                 <div className="grid grid-cols-2 gap-4 text-xs">
                   <div>
-                    <span className="text-[10px] text-[#6D675E] uppercase block">Experience</span>
+                    <span className="text-[10px] text-[#6D675E] uppercase block">Primary Experience</span>
                     <span className="font-medium text-[#F5F1E8]">{confirmedBooking.experienceTitle}</span>
                   </div>
                   <div>
@@ -559,7 +666,25 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                   </div>
                 </div>
 
-                {confirmedBooking.extras.length > 0 && (
+                {/* Show Bundled Experiences if added */}
+                {confirmedBooking.bundledExperiences && confirmedBooking.bundledExperiences.length > 0 && (
+                  <div className="pt-2 border-t border-[#C8A96B]/20">
+                    <span className="text-[10px] text-[#C8A96B] uppercase tracking-wider block mb-1.5 font-medium">
+                      Bundled Luxury Experiences Included
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {confirmedBooking.bundledExperiences.map((bundle: string, i: number) => (
+                        <span key={i} className="text-xs bg-[#4A171D] text-[#F5F1E8] border border-[#C8A96B]/50 px-3 py-1 flex items-center gap-1.5 font-serif">
+                          <Hotel className="w-3.5 h-3.5 text-[#C8A96B]" />
+                          <span>{bundle}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Show Personal Extras if added */}
+                {confirmedBooking.extras && confirmedBooking.extras.length > 0 && (
                   <div className="pt-2 border-t border-[#C8A96B]/15">
                     <span className="text-[10px] text-[#6D675E] uppercase block mb-1">Personal Extras Included</span>
                     <div className="flex flex-wrap gap-2">

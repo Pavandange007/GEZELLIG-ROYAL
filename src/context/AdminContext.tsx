@@ -10,6 +10,7 @@ export interface Booking {
   packageName: string;
   priceTotal: number;
   extras: string[];
+  bundledExperiences?: string[];
   recipientName: string;
   recipientMessage?: string;
   customerName: string;

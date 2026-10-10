@@ -341,6 +341,21 @@ export const AdminPage: React.FC = () => {
                     <span className="font-serif text-[#C8A96B] text-sm">€{b.priceTotal} ({b.paymentMethod})</span>
                   </div>
                 </div>
+
+                {((b.bundledExperiences && b.bundledExperiences.length > 0) || (b.extras && b.extras.length > 0)) && (
+                  <div className="pt-2 border-t border-[#C8A96B]/15 flex flex-wrap gap-2 text-[10px]">
+                    {b.bundledExperiences?.map((be, i) => (
+                      <span key={`b-${i}`} className="bg-[#4A171D] text-[#F5F1E8] border border-[#C8A96B]/50 px-2 py-0.5">
+                        Bundled: {be}
+                      </span>
+                    ))}
+                    {b.extras?.map((ex, i) => (
+                      <span key={`ex-${i}`} className="bg-[#C8A96B]/15 text-[#C8A96B] border border-[#C8A96B]/30 px-2 py-0.5">
+                        Extra: {ex}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
