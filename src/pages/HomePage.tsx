@@ -37,12 +37,9 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectExperi
         {/* Hero Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center space-y-8 animate-fade-in pt-16">
           
-          {/* Small Gold Label */}
-          <div className="inline-flex items-center gap-2 border border-[#C8A96B]/40 px-4 py-1.5 bg-[#0B0A09]/70 backdrop-blur-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C8A96B]" />
-            <span className="text-[11px] uppercase tracking-[0.3em] text-[#C8A96B] font-sans font-medium">
-              GEZELLIG ROYAL
-            </span>
+          {/* Brand Logo Label */}
+          <div className="inline-flex items-center gap-2 border border-[#C8A96B]/40 px-4 py-2 bg-[#0B0A09]/80 backdrop-blur-md">
+            <img src="/images/logo-white.png" alt="Gezellig Royal" className="h-7 w-auto object-contain" />
           </div>
 
           {/* Main Headline */}

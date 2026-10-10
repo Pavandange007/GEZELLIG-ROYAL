@@ -46,19 +46,13 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenB
           <button
             onClick={() => handleNavClick('home')}
             className="group text-left flex items-center gap-3 focus:outline-none"
+            aria-label="Gezellig Royal Home"
           >
-            {/* Minimalist Royal Monogram Emblem */}
-            <div className="w-9 h-9 rounded-full border border-[#C8A96B]/50 flex items-center justify-center bg-[#0B0A09] group-hover:border-[#C8A96B] transition-colors">
-              <span className="font-serif text-[#C8A96B] font-light text-xs tracking-widest">GR</span>
-            </div>
-            <div>
-              <span className="font-serif text-lg md:text-xl text-[#F5F1E8] tracking-[0.25em] font-light uppercase block group-hover:text-[#C8A96B] transition-colors">
-                GEZELLIG ROYAL
-              </span>
-              <span className="text-[9px] text-[#C8A96B] tracking-[0.3em] uppercase block font-sans -mt-1 font-light opacity-90">
-                NETHERLANDS
-              </span>
-            </div>
+            <img
+              src="/images/logo-white.png"
+              alt="Gezellig Royal Logo"
+              className="h-11 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
           </button>
 
           {/* Desktop Navigation */}
@@ -318,7 +312,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenB
               {t.nav.discoverCTA}
             </button>
             <p className="text-[10px] text-[#6D675E] tracking-widest uppercase">
-              GEZELLIG ROYAL NETHERLANDS — ONCE IN A ROYAL EXPERIENCE
+              GEZELLIG ROYAL — ONCE IN A ROYAL EXPERIENCE
             </p>
           </div>
         </div>

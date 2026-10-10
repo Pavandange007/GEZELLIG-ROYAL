@@ -168,11 +168,8 @@ export const GiftCardsPage: React.FC = () => {
               
               {/* Top Watermark */}
               <div className="flex justify-between items-start border-b border-[#C8A96B]/30 pb-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full border border-[#C8A96B] flex items-center justify-center">
-                    <span className="font-serif text-[#C8A96B] text-[10px]">GR</span>
-                  </div>
-                  <span className="font-serif text-lg tracking-[0.2em] text-[#F5F1E8] uppercase">GEZELLIG ROYAL</span>
+                <div className="flex items-center gap-3">
+                  <img src="/images/logo-white.png" alt="Gezellig Royal" className="h-9 w-auto object-contain" />
                 </div>
                 <span className="font-serif text-3xl text-[#C8A96B] font-light">€{finalAmount}</span>
               </div>

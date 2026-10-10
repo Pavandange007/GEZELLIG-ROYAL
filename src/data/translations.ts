@@ -121,7 +121,7 @@ export const translations = {
     },
     footer: {
       tagline: 'ONCE IN A ROYAL EXPERIENCE',
-      rights: '© Gezellig Royal. All rights reserved. Netherlands.',
+      rights: '© Gezellig Royal. All rights reserved.',
     }
   },
   NL: {
@@ -244,7 +244,7 @@ export const translations = {
     },
     footer: {
       tagline: 'ONCE IN A ROYAL EXPERIENCE',
-      rights: '© Gezellig Royal. Alle rechten voorbehouden. Nederland.',
+      rights: '© Gezellig Royal. Alle rechten voorbehouden.',
     }
   }
 };

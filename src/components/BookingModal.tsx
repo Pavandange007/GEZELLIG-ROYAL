@@ -85,9 +85,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
         {/* Top Header */}
         <div className="flex items-center justify-between p-6 border-b border-[#C8A96B]/20 bg-[#0B0A09]">
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-full border border-[#C8A96B] flex items-center justify-center">
-              <span className="font-serif text-[#C8A96B] text-[10px]">GR</span>
-            </div>
+            <img src="/images/logo-white.png" alt="Gezellig Royal" className="h-9 w-auto object-contain" />
             <div>
               <span className="text-[10px] text-[#C8A96B] uppercase tracking-[0.2em] block font-sans">
                 {experience.categoryLabel}
@@ -625,7 +623,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
 
               <div className="space-y-2">
                 <span className="text-xs uppercase tracking-[0.3em] text-[#C8A96B] block">
-                  GEZELLIG ROYAL NETHERLANDS
+                  GEZELLIG ROYAL
                 </span>
                 <h2 className="font-serif text-3xl md:text-4xl font-light text-[#F5F1E8]">
                   Your Royal Experience Is Confirmed
@@ -638,9 +636,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
               {/* Royal Gift Pass Printable Card */}
               <div className="p-8 border border-[#C8A96B]/40 bg-[#0B0A09] text-left space-y-6 relative overflow-hidden shadow-2xl">
                 <div className="flex justify-between items-start border-b border-[#C8A96B]/20 pb-4">
-                  <div>
-                    <span className="font-serif text-[#C8A96B] text-sm tracking-widest block">GEZELLIG ROYAL</span>
-                    <span className="text-[10px] text-[#6D675E] uppercase tracking-wider">BOOKING REFERENCE</span>
+                  <div className="flex items-center gap-3">
+                    <img src="/images/logo-white.png" alt="Gezellig Royal" className="h-10 w-auto object-contain" />
+                    <div>
+                      <span className="font-serif text-[#C8A96B] text-sm tracking-widest block">GEZELLIG ROYAL</span>
+                      <span className="text-[10px] text-[#6D675E] uppercase tracking-wider">BOOKING REFERENCE</span>
+                    </div>
                   </div>
                   <span className="font-serif text-xl text-[#C8A96B] font-medium tracking-wider">
                     {confirmedBooking.referenceCode}
@@ -698,7 +699,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ experience, onClose 
                 )}
 
                 <div className="pt-2 text-center text-[10px] text-[#6D675E] italic">
-                  «Once in a Royal Experience — Gezellig Royal Netherlands»
+                  «Once in a Royal Experience — Gezellig Royal»
                 </div>
               </div>
 

@@ -22,12 +22,11 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
         {/* Brand Column */}
         <div className="lg:col-span-2 space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full border border-[#C8A96B] flex items-center justify-center">
-              <span className="font-serif text-[#C8A96B] text-xs">GR</span>
-            </div>
-            <span className="font-serif text-xl tracking-[0.25em] text-[#F5F1E8] uppercase font-light">
-              GEZELLIG ROYAL
-            </span>
+            <img
+              src="/images/logo-white.png"
+              alt="Gezellig Royal Logo"
+              className="h-12 w-auto object-contain"
+            />
           </div>
 
           <p className="text-xs text-[#6D675E] leading-relaxed max-w-sm font-sans">
