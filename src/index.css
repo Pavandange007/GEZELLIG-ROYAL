@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --obsidian: #0B0A09;
+    --soft-ivory: #F5F1E8;
+    --champagne-gold: #C8A96B;
+    --gold-hover: #DAB67A;
+    --gold-muted: rgba(200, 169, 107, 0.25);
+    --gold-glow: rgba(200, 169, 107, 0.12);
+    --royal-maroon: #4A171D;
+    --burgundy: #2B0D12;
+    --text-primary: #F5F1E8;
+    --text-dark: #111111;
+    --text-muted: #6D675E;
+    --card-bg: #121110;
+    --card-border: rgba(200, 169, 107, 0.18);
+  }
+
+  body {
+    background-color: var(--obsidian);
+    color: var(--soft-ivory);
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+}
+
+/* Custom Typography & Utility Classes */
+.font-garamond {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-manrope {
+  font-family: 'Manrope', sans-serif;
+}
+
+/* Gold Accent Lines */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C8A96B, transparent);
+  width: 100%;
+}
+
+.gold-line-left {
+  height: 1px;
+  background: linear-gradient(90deg, #C8A96B, transparent);
+}
+
+.gold-line-short {
+  height: 1px;
+  width: 48px;
+  background-color: #C8A96B;
+}
+
+/* Card Styling */
+.luxury-card {
+  background: #121110;
+  border: 1px solid rgba(200, 169, 107, 0.2);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-card:hover {
+  border-color: rgba(200, 169, 107, 0.6);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(200, 169, 107, 0.08);
+}
+
+/* Glassmorphism */
+.glass-obsidian {
+  background: rgba(11, 10, 9, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(200, 169, 107, 0.15);
+}
+
+.glass-maroon {
+  background: rgba(74, 23, 29, 0.65);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(200, 169, 107, 0.3);
+}
+
+/* Buttons */
+.btn-royal-primary {
+  background-color: #0B0A09;
+  color: #F5F1E8;
+  border: 1px solid #C8A96B;
+  padding: 0.875rem 2rem;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: all 0.4s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.btn-royal-primary:hover {
+  background-color: #C8A96B;
+  color: #0B0A09;
+  box-shadow: 0 0 20px rgba(200, 169, 107, 0.3);
+}
+
+.btn-royal-secondary {
+  background-color: transparent;
+  color: #F5F1E8;
+  border: 1px solid rgba(245, 241, 232, 0.3);
+  padding: 0.875rem 2rem;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: all 0.4s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.btn-royal-secondary:hover {
+  border-color: #C8A96B;
+  color: #C8A96B;
+  background-color: rgba(200, 169, 107, 0.05);
+}
+
+.btn-royal-maroon {
+  background-color: #4A171D;
+  color: #F5F1E8;
+  border: 1px solid #C8A96B;
+  padding: 0.875rem 2rem;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: all 0.4s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.btn-royal-maroon:hover {
+  background-color: #2B0D12;
+  border-color: #DAB67A;
+}
+
+/* Image Slow Zoom */
+.img-zoom-container {
+  overflow: hidden;
+}
+
+.img-zoom-container img {
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.img-zoom-container:hover img {
+  transform: scale(1.06);
+}
+
+/* Animations */
+@keyframes fadeInSlow {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInSlow 1s ease forwards;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0A09;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2A2622;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C8A96B;
+}
