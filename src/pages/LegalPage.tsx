@@ -44,7 +44,7 @@ export const LegalPage: React.FC = () => {
               Gezellig Royal operates in the Netherlands and strictly complies with the General Data Protection Regulation (GDPR / AVG). Personal information collected during booking (name, email, telephone, recipient details) is stored securely and processed exclusively for experience fulfillment and customer service.
             </p>
             <p>
-              We never sell or disclose customer data to unauthorized third parties. You maintain the right to inspect, update, or request erasure of your data at any time by contacting concierge@gezelligroyal.nl.
+              We never sell or disclose customer data to unauthorized third parties. You maintain the right to inspect, update, or request erasure of your data at any time by contacting gezelligroyal@gmail.com.
             </p>
           </div>
         )}
